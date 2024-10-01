@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,10 @@
         body {
             background: #000;
             margin: 0;
+            display: grid;
+            place-content: center;
+            height: 100vh;
+
 
         }
 
@@ -16,9 +20,15 @@
             border: 1px solid white;
         }
     </style>
+    <script type="module">
+        const canvas = document.querySelector('canvas')
+        const context = canvas.getContext('2d')
+    </script>
 </head>
 
 <body>
+    <canvas id="canvas" width="320" height="500"></canvas>
+
 
 </body>
 
