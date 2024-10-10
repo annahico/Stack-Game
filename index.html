@@ -43,7 +43,7 @@
 
         function initializeGameState() {
             boxes = [{
-                x: canvas.width / 2,
+                x: (canvas.width / 2) - (INITIAL_BOX_WIDTH / 2), //LE RESTAMOS LA MITAD DEL ANCHO DE LA CAJA
                 y: 200,
                 width: INITIAL_BOX_WIDTH,
                 color: 'white'
@@ -69,6 +69,20 @@
 
             window.requestAnimationFrame(draw)
         }
+
+        function drawBackground() {
+            context.fillStyle = '#000'
+            context.fillRect(0, 0, canvas.width, canvas.height)
+        }
+
+        function drawBoxes() {
+            boxes.forEach((box) => {
+                const { x, y, width, color } = box
+                const newY = INITIAL_BOX_Y;
+            })
+        }
+
+        restart()
 
     </script>
 </head>
