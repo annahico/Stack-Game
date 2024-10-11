@@ -41,6 +41,16 @@
         let boxes = []
         let scrollCounter, cameraY, current, mode, xSpeed, ySpeed
 
+        function createStepColor(step) {
+            if (Step === 0) return 'white'
+
+            const red = Math.floor(Math.random() * 255)
+            const green = Math.floor(Math.random() * 255)
+            const blue = Math.floor(Math.random() * 255)
+
+            return `rgb(${red}, ${green}, ${blue})`
+        }
+
         function initializeGameState() {
             boxes = [{
                 x: (canvas.width / 2) - (INITIAL_BOX_WIDTH / 2), //LE RESTAMOS LA MITAD DEL ANCHO DE LA CAJA
@@ -96,7 +106,7 @@
                 x: 0,
                 y: (current + 10) * BOX_HEIGHT,
                 width: boxes[current - 1].width,
-                color: 'white'
+                color: createStepColor()
             }
         }
 
