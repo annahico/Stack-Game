@@ -51,6 +51,13 @@
             return `rgb(${red}, ${green}, ${blue})`
         }
 
+        function updateCamera() {
+            if (scrollCounter > 0) {
+                cameraY++
+                scrollCounter--
+            }
+        }
+
         function initializeGameState() {
             boxes = [{
                 x: (canvas.width / 2) - (INITIAL_BOX_WIDTH / 2), //LE RESTAMOS LA MITAD DEL ANCHO DE LA CAJA
@@ -83,6 +90,8 @@
                 updateFallMode()
             }
 
+            updateCameraPosition()
+
             window.requestAnimationFrame(draw)
         }
 
@@ -94,7 +103,7 @@
         function drawBoxes() {
             boxes.forEach((box) => {
                 const { x, y, width, color } = box
-                const newY = INITIAL_BOX_Y;
+                const newY = INITIAL_BOX_Y - y + cameraY;
 
                 context.fillStyle = color
                 context.fillRect(x, y + cameraY, width, BOX_HEIGHT)
