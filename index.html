@@ -69,6 +69,8 @@
 
             if (mode === MODES.BOUNCE) {
                 moveAndDetectCollision()
+            } else if (mode === MODES.FALL) {
+                updateFallMode()
             }
 
             window.requestAnimationFrame(draw)
@@ -98,6 +100,18 @@
             }
         }
 
+        function updateFallMode() {
+            const currentBox = boxes[current]
+            currentBox.y -= ySpeed
+
+            if (currentBox.y >= INITIAL_BOX_Y) {
+                mode = MODES.BOUNCE
+                scrollCounter = 0
+                cameraY = 0
+                createNewBox()
+            }
+        }
+
         function moveAndDetectCollision() {
             const currentBox = boxes[current]
             currentBox.x += xSpeed
@@ -117,10 +131,14 @@
                 xSpeed = -xSpeed
             }
 
+            document.addEventListener("keydown", (event) => {
+                if (event.key === 'Space' && mode === MODES.BOUNCE) {
+                    mode = MODES.FALL
 
-        }
+                }
+            })
 
-        restart()
+            restart()
 
     </script>
 </head>
