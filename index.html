@@ -100,7 +100,24 @@
 
         function moveAndDetectCollision() {
             const currentBox = boxes[current]
-            currentBox.y -= ySpeed
+            currentBox.x += xSpeed
+
+            const isMovingRight = xSpeed > 0
+            const isMovingLeft = xSpeed < 0
+
+            const hasHitRightSide =
+                currentBox.x + currentBox.width > canvas.width
+
+            const hasHitLeftSide = currentBox < 0
+
+            if (
+                (isMovingRight && hasHitLeftSide) ||
+                (isMovingLeft && hasHitRightSide)
+            ) {
+                xSpeed = -xSpeed
+            }
+
+
         }
 
         restart()
