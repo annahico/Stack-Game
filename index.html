@@ -67,6 +67,10 @@
             drawBackground()
             drawBoxes()
 
+            if (mode === MODES.BOUNCE) {
+                moveAndDetectCollision()
+            }
+
             window.requestAnimationFrame(draw)
         }
 
@@ -79,7 +83,24 @@
             boxes.forEach((box) => {
                 const { x, y, width, color } = box
                 const newY = INITIAL_BOX_Y;
+
+                context.fillStyle = color
+                context.fillRect(x, y + cameraY, width, BOX_HEIGHT)
             })
+        }
+
+        function createNewBox() {
+            boxes[current] = {
+                x: 0,
+                y: (current + 10) * BOX_HEIGHT,
+                width: boxes[current - 1].width,
+                color: 'white'
+            }
+        }
+
+        function moveAndDetectCollision() {
+            const currentBox = boxes[current]
+            currentBox.y -= ySpeed
         }
 
         restart()
