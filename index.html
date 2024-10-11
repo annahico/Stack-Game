@@ -104,13 +104,40 @@
             const currentBox = boxes[current]
             currentBox.y -= ySpeed
 
-            if (currentBox.y >= INITIAL_BOX_Y) {
-                mode = MODES.BOUNCE
-                scrollCounter = 0
-                cameraY = 0
-                createNewBox()
+            const positionPreviousBox = boxes[current - 1].y + BOX_HEIGHT
+
+            if (currentBox.y === positionPreviousBox) {
+                handleBoxLanding()
             }
         }
+
+        function handleBoxLanding() {
+            const currentBox = boxes[current]
+            const previousBox = boxes[current - 1]
+
+            const difference = currentBox.x - previousBox.y
+
+            if (Math.abs(difference) > currentBox.width) {
+                mode = MODES.GAMEOVER
+                return
+            }
+
+            xSpeed += xSpeed > 0 ? 1 : -1
+            current++
+            scrollCounter = BOX_HEIGHT
+            mode = MODES.BOUNCE
+
+            CreateNewBox()
+
+        }
+
+        if (currentBox.y >= INITIAL_BOX_Y) {
+            mode = MODES.BOUNCE
+            scrollCounter = 0
+            cameraY = 0
+            createNewBox()
+        }
+
 
         function moveAndDetectCollision() {
             const currentBox = boxes[current]
@@ -130,15 +157,15 @@
             ) {
                 xSpeed = -xSpeed
             }
+        }
+        document.addEventListener("keydown", (event) => {
+            if (event.key === 'Space' && mode === MODES.BOUNCE) {
+                mode = MODES.FALL
 
-            document.addEventListener("keydown", (event) => {
-                if (event.key === 'Space' && mode === MODES.BOUNCE) {
-                    mode = MODES.FALL
+            }
+        })
 
-                }
-            })
-
-            restart()
+        restart()
 
     </script>
 </head>
