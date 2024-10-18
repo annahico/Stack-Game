@@ -115,7 +115,7 @@
                 x: 0,
                 y: (current + 10) * BOX_HEIGHT,
                 width: boxes[current - 1].width,
-                color: createStepColor()
+                color: createStepColor(current)
             }
         }
 
@@ -130,6 +130,22 @@
             }
         }
 
+        function adjustCurrentBox() {
+            const currentBox = boxes[current]
+            const previousBox = boxes[current - 1]
+
+            if (currentBox.x > previousBox.x) {
+                console.log('sobra caja por la derecha')
+                currentBox.width -= difference
+            } else {
+                currentBox.width += difference
+                currentBox.x = previousBox.x
+                console.log('sobra caja por la izquierda');
+            }
+        }
+
+
+
         function handleBoxLanding() {
             const currentBox = boxes[current]
             const previousBox = boxes[current - 1]
@@ -140,6 +156,9 @@
                 mode = MODES.GAMEOVER
                 return
             }
+
+            adjustCurrentBox()
+
 
             xSpeed += xSpeed > 0 ? 1 : -1
             current++
